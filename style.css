@@ -1,6 +1,8 @@
 body {
     background-color: #000000;}
 
+
+
 header {
     display: flex;
     height: 55px;
@@ -24,3 +26,25 @@ header {
 
 .header_text {
     color: #FFB10A;}
+
+
+
+.card {
+    display: flex;
+    flex-direction: row;
+    height: 175px;
+    cursor: pointer;}
+
+.card_image_div {
+    width: 150px;
+    height: 175px;
+    padding: 10px;}
+
+.card_image {
+    height: 100%;
+    width: auto;
+    display: block;}
+
+.card_text_div {
+    flex: 1;
+    padding: 10px;}
