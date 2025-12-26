@@ -1,0 +1,26 @@
+body {
+    background-color: #000000;}
+
+header {
+    display: flex;
+    height: 55px;
+    background-color: #303030;}
+
+.header_image_div {
+    width: 55px;
+    padding: 10px;}
+
+.header_image {
+    height: 100%;
+    width: auto;
+    display: block;}
+
+.header_text_div {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    padding-left: 5px;
+    padding-top: 6px;}
+
+.header_text {
+    color: #FFB10A;}
