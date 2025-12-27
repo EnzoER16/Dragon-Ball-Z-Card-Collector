@@ -48,3 +48,28 @@ header {
 .card_text_div {
     flex: 1;
     padding: 10px;}
+
+/* cards grid */
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(10, 1fr); /* pc */
+    gap: 10px;
+    padding: 10px;}
+
+.item {
+    width: 100%;}
+
+.item img {
+    width: 100%;
+    height: auto;
+    display: block;}
+
+.item img.disabled {
+    filter: grayscale(100%);
+    opacity: 0.6;
+}
+
+@media (max-width: 768px) { /* mobile */
+    .grid {
+        grid-template-columns: repeat(4, 1fr);}}
