@@ -1,7 +1,7 @@
 body {
     background-color: #000000;}
 
-
+/* header */
 
 header {
     display: flex;
@@ -27,7 +27,7 @@ header {
 .header_text {
     color: #FFB10A;}
 
-
+/* expansion cards */
 
 .card {
     display: flex;
