@@ -22,13 +22,40 @@
         </header>
 
         <div class="grid">
-            <div class="item">
-                <div class="background"></div>
-                <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/1.jpg" class="disabled"></div>
 
             <div class="item">
-                <div class="background"></div>
-                <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/2.jpg" class="disabled"></div>
+                
+                <div class="card">
+                    <div class="background"></div>
+                    <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/1.jpg" class="disabled">
+                </div>
+                
+                <div class="counter">
+                    <button class="minus">
+                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983495/minus.png" alt="restar">
+                    </button>
+                    <span class="count">0</span>
+                    <button class="plus">
+                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983505/plus.png" alt="sumar">
+                    </button>
+                </div>
+
+            </div>
+
+            <div class="item">
+                
+                <div class="card">
+                    <div class="background"></div>
+                    <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/2.jpg" class="disabled">
+                </div>
+                
+                <div class="counter">
+                    <button class="minus">-</button>
+                    <span class="count">0</span>
+                    <button class="plus">+</button>
+                </div>
+
+            </div>
 
             <div class="item">
                 <div class="background"></div>
@@ -41,6 +68,44 @@
             <div class="item">
                 <div class="background"></div>
                 <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/5.jpg" class="disabled"></div>
+
+        <script>
+            document.querySelectorAll('.item').forEach(item => {
+                const minus = item.querySelector('.minus');
+                const plus = item.querySelector('.plus');
+                const countEl = item.querySelector('.count');
+                const img = item.querySelector('img');
+
+                let count = 0;
+
+                countEl.textContent = count;
+                minus.classList.add('disabled');
+
+                function updateUI() {
+                    countEl.textContent = count;
+
+                    if (count === 0) {
+                        minus.classList.add('disabled');
+                        img.classList.add('disabled'); // imagen gris
+                    } else {
+                        minus.classList.remove('disabled');
+                        img.classList.remove('disabled');
+                    }
+                }
+
+                minus.addEventListener('click', () => {
+                    if (count > 0) {
+                        count--;
+                        updateUI();
+                    }
+                });
+
+                plus.addEventListener('click', () => {
+                    count++;
+                    updateUI();
+                });
+            });
+        </script>
 
     </body>
 

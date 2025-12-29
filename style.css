@@ -32,7 +32,7 @@ header {
 
 /* expansion cards */
 
-.card {
+.expansion-card {
     display: flex;
     flex-direction: row;
     height: 175px;
@@ -65,7 +65,9 @@ header {
     position: relative;
     display: flex;
     justify-content: center;
-    align-items: center;}
+    align-items: center;
+    flex-direction: column;
+    gap: 3px;}
 
 .item .background {
     position: absolute;
@@ -94,3 +96,64 @@ header {
 
 @media (max-width: 768px) { /* mobile */
     .grid {grid-template-columns: repeat(4, 1fr);}}
+
+/* counter */
+
+.counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 85%;
+    max-width: 90px;
+    height: 28px;
+    background: #1c1c1c;
+    border-radius: 999px;
+    padding: 6px 10px;
+    box-sizing: border-box;
+}
+
+.counter button {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: transparent;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.counter button img {
+    border: none;
+    width: 15px;
+    height: 15px;
+    display: block;
+    pointer-events: none;
+}
+
+.counter button.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.minus {
+    color: #d32f2f;
+    border: 1px solid #d32f2f;
+}
+
+.plus {
+    color: #2e7d32;
+    border: 1px solid #2e7d32;
+}
+
+.counter .count {
+    min-width: 24px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    color: #ffffff;
+
+}
