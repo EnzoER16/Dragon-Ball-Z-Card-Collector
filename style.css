@@ -176,6 +176,5 @@ header {
 @media (max-width: 768px) { /* mobile */
     .counter .count {
         font-size: 14px;
-        transform: translateY(-1px);
     }
 }
