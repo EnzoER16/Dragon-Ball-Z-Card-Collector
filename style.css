@@ -1,34 +1,40 @@
 body {
-    background-color: #000000;}
+    background-color: #000000;
+}
 
 /* header */
 
 header {
     display: flex;
     height: 55px;
-    background-color: #303030;}
+    background-color: #303030;
+}
 
 .header_image_div {
     width: 55px;
     padding: 10px;
     display: flex;
     justify-content: center;
-    align-items: center;}
+    align-items: center;
+}
 
 .header_image {
     height: 100%;
     width: auto;
-    display: block;}
+    display: block;
+}
 
 .header_text_div {
     flex-grow: 1;
     display: flex;
     align-items: center;
     padding-left: 5px;
-    padding-top: 6px;}
+    padding-top: 6px;
+}
 
 .header_text {
-    color: #FFB10A;}
+    color: #FFB10A;
+}
 
 /* expansion cards */
 
@@ -36,21 +42,25 @@ header {
     display: flex;
     flex-direction: row;
     height: 175px;
-    cursor: pointer;}
+    cursor: pointer;
+}
 
 .card_image_div {
     width: 150px;
     height: 175px;
-    padding: 10px;}
+    padding: 10px;
+}
 
 .card_image {
     height: 100%;
     width: auto;
-    display: block;}
+    display: block;
+}
 
 .card_text_div {
     flex: 1;
-    padding: 10px;}
+    padding: 10px;
+}
 
 /* cards grid */
 
@@ -58,7 +68,8 @@ header {
     display: grid;
     grid-template-columns: repeat(10, 1fr); /* pc */
     gap: 10px;
-    padding: 10px;}
+    padding: 10px;
+}
 
 .item {
     width: 100%;
@@ -67,7 +78,8 @@ header {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    gap: 3px;}
+    gap: 3px;
+}
 
 .item .background {
     position: absolute;
@@ -80,7 +92,8 @@ header {
         135deg,
         rgb(224,224,224) 0%,
         rgb(255,255,255) 50%,
-        rgb(168,192,255) 100%);}
+        rgb(168,192,255) 100%);
+}
 
 .item img {
     position: relative;
@@ -89,13 +102,16 @@ header {
     display: block;
     padding: 3px;
     box-sizing: border-box;
-    border-radius: 5px;}
+    border-radius: 5px;
+}
 
 .item img.disabled {
-    filter: grayscale(100%) brightness(70%);}
+    filter: grayscale(100%) brightness(70%);
+}
 
 @media (max-width: 768px) { /* mobile */
-    .grid {grid-template-columns: repeat(4, 1fr);}}
+    .grid {grid-template-columns: repeat(4, 1fr);}
+}
 
 /* counter */
 
