@@ -10,7 +10,10 @@ header {
 
 .header_image_div {
     width: 55px;
-    padding: 10px;}
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;}
 
 .header_image {
     height: 100%;
@@ -84,8 +87,7 @@ header {
     display: block;
     padding: 3px;
     box-sizing: border-box;
-    border-radius: 5px;
-}
+    border-radius: 5px;}
 
 .item img.disabled {
     filter: grayscale(100%) brightness(70%);}
