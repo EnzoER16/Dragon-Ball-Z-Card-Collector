@@ -103,10 +103,12 @@ header {
     padding: 3px;
     box-sizing: border-box;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .item img.disabled {
     filter: grayscale(100%) brightness(70%);
+    cursor: pointer;
 }
 
 @media (max-width: 768px) { /* mobile */
@@ -170,4 +172,16 @@ header {
     font-size: 14px;
     font-weight: bold;
     color: #ffffff;
+}
+
+.counter.disabled {
+    opacity: 0.35;
+}
+
+.counter.disabled .count {
+    color: #aaaaaa;
+}
+
+.counter.disabled button {
+    pointer-events: none;
 }

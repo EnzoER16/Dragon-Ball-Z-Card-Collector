@@ -88,39 +88,50 @@
 
         <script>
             document.querySelectorAll('.item').forEach(item => {
+
+                const img = item.querySelector('.card img');
+                const counter = item.querySelector('.counter');
                 const minus = item.querySelector('.minus');
                 const plus = item.querySelector('.plus');
                 const countEl = item.querySelector('.count');
-                const img = item.querySelector('img');
 
-                let count = 0;
-
-                countEl.textContent = count;
-                minus.classList.add('disabled');
+                let hasCard = false;
+                let repeats = 0;
 
                 function updateUI() {
-                    countEl.textContent = count;
+                    countEl.textContent = hasCard ? repeats : "-";
 
-                    if (count === 0) {
-                        minus.classList.add('disabled');
-                        img.classList.add('disabled'); // imagen gris
-                    } else {
-                        minus.classList.remove('disabled');
-                        img.classList.remove('disabled');
-                    }
+                    img.classList.toggle('disabled', !hasCard);
+                    counter.classList.toggle('disabled', !hasCard);
+
+                    minus.classList.toggle('disabled', repeats === 0);
                 }
 
-                minus.addEventListener('click', () => {
-                    if (count > 0) {
-                        count--;
+                img.addEventListener('click', () => {
+                    hasCard = !hasCard;
+
+                    if (!hasCard) {
+                        repeats = 0;
+                    }
+
+                    updateUI();
+                });
+
+                plus.addEventListener('click', () => {
+                    if (hasCard) {
+                        repeats++;
                         updateUI();
                     }
                 });
 
-                plus.addEventListener('click', () => {
-                    count++;
-                    updateUI();
+                minus.addEventListener('click', () => {
+                    if (hasCard && repeats > 0) {
+                        repeats--;
+                        updateUI();
+                    }
                 });
+
+                updateUI();
             });
         </script>
 
