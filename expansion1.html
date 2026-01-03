@@ -21,298 +21,95 @@
             </div>
         </header>
 
-        <div class="grid">
+        <div class="grid" id="grid"></div>
 
-            <div class="item">
-                
-                <div class="card">
-                    <div class="background"></div>
-                    <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/1.jpg" class="disabled">
-                </div>
-                
-                <div class="counter">
-                    <button class="minus">
+            <template id="item-template">
+                <div class="item">
+                    <div class="card">
+                        <div class="background"></div>
+                        <img class="disabled">
+                    </div>
+
+                    <div class="counter">
+                        <button class="minus">
                         <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983495/minus.png" alt="restar">
-                    </button>
-                    <span class="count">0</span>
-                    <button class="plus">
+                        </button>
+                        <span class="count">0</span>
+                        <button class="plus">
                         <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983505/plus.png" alt="sumar">
-                    </button>
+                        </button>
+                    </div>
                 </div>
-
-            </div>
-
-            <div class="item">
-                
-                <div class="card">
-                    <div class="background"></div>
-                    <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/2.jpg" class="disabled">
-                </div>
-                
-                <div class="counter">
-                    <button class="minus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983495/minus.png" alt="restar">
-                    </button>
-                    <span class="count">0</span>
-                    <button class="plus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983505/plus.png" alt="sumar">
-                    </button>
-                </div>
-
-            </div>
-
-            <div class="item">
-                <div class="card">
-                    <div class="background"></div>
-                    <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/3.jpg" class="disabled">
-                </div>
-                
-                <div class="counter">
-                    <button class="minus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983495/minus.png" alt="restar">
-                    </button>
-                    <span class="count">0</span>
-                    <button class="plus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983505/plus.png" alt="sumar">
-                    </button>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="card">
-                    <div class="background"></div>
-                    <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/4.jpg" class="disabled">
-                </div>
-                
-                <div class="counter">
-                    <button class="minus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983495/minus.png" alt="restar">
-                    </button>
-                    <span class="count">0</span>
-                    <button class="plus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983505/plus.png" alt="sumar">
-                    </button>
-                </div>
-
-            </div>
-
-            <div class="item">
-                <div class="card">
-                    <div class="background"></div>
-                    <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/5.jpg" class="disabled">
-                </div>
-                
-                <div class="counter">
-                    <button class="minus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983495/minus.png" alt="restar">
-                    </button>
-                    <span class="count">0</span>
-                    <button class="plus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983505/plus.png" alt="sumar">
-                    </button>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="card">
-                    <div class="background"></div>
-                    <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/6.jpg" class="disabled">
-                </div>
-                
-                <div class="counter">
-                    <button class="minus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983495/minus.png" alt="restar">
-                    </button>
-                    <span class="count">0</span>
-                    <button class="plus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983505/plus.png" alt="sumar">
-                    </button>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="card">
-                    <div class="background"></div>
-                    <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/7.jpg" class="disabled">
-                </div>
-                
-                <div class="counter">
-                    <button class="minus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983495/minus.png" alt="restar">
-                    </button>
-                    <span class="count">0</span>
-                    <button class="plus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983505/plus.png" alt="sumar">
-                    </button>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="card">
-                    <div class="background"></div>
-                    <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/8.jpg" class="disabled">
-                </div>
-                
-                <div class="counter">
-                    <button class="minus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983495/minus.png" alt="restar">
-                    </button>
-                    <span class="count">0</span>
-                    <button class="plus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983505/plus.png" alt="sumar">
-                    </button>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="card">
-                    <div class="background"></div>
-                    <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/9.jpg" class="disabled">
-                </div>
-                
-                <div class="counter">
-                    <button class="minus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983495/minus.png" alt="restar">
-                    </button>
-                    <span class="count">0</span>
-                    <button class="plus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983505/plus.png" alt="sumar">
-                    </button>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="card">
-                    <div class="background"></div>
-                    <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/10.jpg" class="disabled">
-                </div>
-                
-                <div class="counter">
-                    <button class="minus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983495/minus.png" alt="restar">
-                    </button>
-                    <span class="count">0</span>
-                    <button class="plus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983505/plus.png" alt="sumar">
-                    </button>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="card">
-                    <div class="background"></div>
-                    <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1767406180/11.jpg" class="disabled">
-                </div>
-                
-                <div class="counter">
-                    <button class="minus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983495/minus.png" alt="restar">
-                    </button>
-                    <span class="count">0</span>
-                    <button class="plus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983505/plus.png" alt="sumar">
-                    </button>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="card">
-                    <div class="background"></div>
-                    <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/12.jpg" class="disabled">
-                </div>
-                
-                <div class="counter">
-                    <button class="minus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983495/minus.png" alt="restar">
-                    </button>
-                    <span class="count">0</span>
-                    <button class="plus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983505/plus.png" alt="sumar">
-                    </button>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="card">
-                    <div class="background"></div>
-                    <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/13.jpg" class="disabled">
-                </div>
-                
-                <div class="counter">
-                    <button class="minus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983495/minus.png" alt="restar">
-                    </button>
-                    <span class="count">0</span>
-                    <button class="plus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983505/plus.png" alt="sumar">
-                    </button>
-                </div>
-            </div>
-
-            <div class="item">
-                <div class="card">
-                    <div class="background"></div>
-                    <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603790/14.jpg" class="disabled">
-                </div>
-                
-                <div class="counter">
-                    <button class="minus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983495/minus.png" alt="restar">
-                    </button>
-                    <span class="count">0</span>
-                    <button class="plus">
-                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983505/plus.png" alt="sumar">
-                    </button>
-                </div>
-            </div>
+            </template>
 
         <script>
-            document.querySelectorAll('.item').forEach(item => {
+            const baseUrl = "https://res.cloudinary.com/dbzcardcollection/image/upload";
+            const defaultVersion = "v1766603790";
 
+            const exceptions = {
+            11: "v1767406180"
+            };
+
+            const images = [];
+
+            for (let i = 1; i <= 129; i++) {
+            const version = exceptions[i] || defaultVersion;
+            images.push(`${baseUrl}/${version}/${i}.jpg`);
+            }
+
+            const grid = document.getElementById("grid");
+            const template = document.getElementById("item-template");
+
+            images.forEach(url => {
+                const clone = template.content.cloneNode(true);
+                const item = clone.querySelector(".item");
+                const img = clone.querySelector(".card img");
+
+            img.src = url;
+
+            setupCounter(item);
+            grid.appendChild(clone);
+            });
+
+            function setupCounter(item) {
                 const img = item.querySelector('.card img');
                 const counter = item.querySelector('.counter');
                 const minus = item.querySelector('.minus');
                 const plus = item.querySelector('.plus');
                 const countEl = item.querySelector('.count');
 
-                let hasCard = false;
-                let repeats = 0;
+            let hasCard = false;
+            let repeats = 0;
 
-                function updateUI() {
-                    countEl.textContent = hasCard ? repeats : "-";
+            function updateUI() {
+                countEl.textContent = hasCard ? repeats : "-";
+                img.classList.toggle('disabled', !hasCard);
+                counter.classList.toggle('disabled', !hasCard);
+                minus.classList.toggle('disabled', repeats === 0);
+            }
 
-                    img.classList.toggle('disabled', !hasCard);
-                    counter.classList.toggle('disabled', !hasCard);
-
-                    minus.classList.toggle('disabled', repeats === 0);
-                }
-
-                img.addEventListener('click', () => {
-                    hasCard = !hasCard;
-
-                    if (!hasCard) {
-                        repeats = 0;
-                    }
-
-                    updateUI();
-                });
-
-                plus.addEventListener('click', () => {
-                    if (hasCard) {
-                        repeats++;
-                        updateUI();
-                    }
-                });
-
-                minus.addEventListener('click', () => {
-                    if (hasCard && repeats > 0) {
-                        repeats--;
-                        updateUI();
-                    }
-                });
-
+            img.addEventListener('click', () => {
+                hasCard = !hasCard;
+                if (!hasCard) repeats = 0;
                 updateUI();
             });
+
+            plus.addEventListener('click', () => {
+                if (hasCard) {
+                repeats++;
+                updateUI();
+                }
+            });
+
+            minus.addEventListener('click', () => {
+                if (hasCard && repeats > 0) {
+                repeats--;
+                updateUI();
+                }
+            });
+
+            updateUI();
+            }
         </script>
 
     </body>
