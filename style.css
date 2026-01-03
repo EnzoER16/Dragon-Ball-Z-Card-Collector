@@ -119,7 +119,7 @@ header {
 }
 
 .item img.disabled {
-    filter: grayscale(100%) brightness(70%);
+    filter: grayscale(80%) brightness(70%);
     cursor: pointer;
 }
 
