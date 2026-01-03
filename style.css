@@ -64,11 +64,23 @@ header {
 
 /* cards grid */
 
-.grid {
+.grid { 
     display: grid;
-    grid-template-columns: repeat(12, 1fr); /* pc */
+    grid-template-columns: repeat(4, 1fr); /* mobile */
     gap: 10px;
     padding: 10px;
+}
+
+@media (min-width: 600px) { /* tablet */
+    .grid {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+@media (min-width: 1024px) { /* pc */
+    .grid {
+        grid-template-columns: repeat(12, 1fr);
+    }
 }
 
 .item {
@@ -111,10 +123,6 @@ header {
     cursor: pointer;
 }
 
-@media (max-width: 768px) { /* mobile */
-    .grid {grid-template-columns: repeat(4, 1fr);}
-}
-
 /* counter */
 
 .counter {
@@ -127,6 +135,18 @@ header {
     border-radius: 999px;
     padding: 4px 6px;
     box-sizing: border-box;
+}
+
+.counter.disabled {
+    opacity: 0.35;
+}
+
+.counter.disabled .count {
+    color: #aaaaaa;
+}
+
+.counter.disabled button {
+    pointer-events: none;
 }
 
 .counter button {
@@ -172,16 +192,4 @@ header {
     font-size: 14px;
     font-weight: bold;
     color: #ffffff;
-}
-
-.counter.disabled {
-    opacity: 0.35;
-}
-
-.counter.disabled .count {
-    color: #aaaaaa;
-}
-
-.counter.disabled button {
-    pointer-events: none;
 }
