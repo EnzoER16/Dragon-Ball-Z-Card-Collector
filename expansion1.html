@@ -44,17 +44,10 @@
 
         <script>
             const baseUrl = "https://res.cloudinary.com/dbzcardcollection/image/upload";
-            const defaultVersion = "v1766603790";
-
-            const exceptions = {
-            11: "v1767406180"
-            };
-
             const images = [];
 
             for (let i = 1; i <= 129; i++) {
-            const version = exceptions[i] || defaultVersion;
-            images.push(`${baseUrl}/${version}/${i}.jpg`);
+                images.push(`${baseUrl}/${i}.jpg`);
             }
 
             const grid = document.getElementById("grid");
@@ -65,10 +58,10 @@
                 const item = clone.querySelector(".item");
                 const img = clone.querySelector(".card img");
 
-            img.src = url;
+                img.src = url;
 
-            setupCounter(item);
-            grid.appendChild(clone);
+                setupCounter(item);
+                grid.appendChild(clone);
             });
 
             function setupCounter(item) {
@@ -78,37 +71,37 @@
                 const plus = item.querySelector('.plus');
                 const countEl = item.querySelector('.count');
 
-            let hasCard = false;
-            let repeats = 0;
+                let hasCard = false;
+                let repeats = 0;
 
-            function updateUI() {
-                countEl.textContent = hasCard ? repeats : "-";
-                img.classList.toggle('disabled', !hasCard);
-                counter.classList.toggle('disabled', !hasCard);
-                minus.classList.toggle('disabled', repeats === 0);
-            }
-
-            img.addEventListener('click', () => {
-                hasCard = !hasCard;
-                if (!hasCard) repeats = 0;
-                updateUI();
-            });
-
-            plus.addEventListener('click', () => {
-                if (hasCard) {
-                repeats++;
-                updateUI();
+                function updateUI() {
+                    countEl.textContent = hasCard ? repeats : "-";
+                    img.classList.toggle('disabled', !hasCard);
+                    counter.classList.toggle('disabled', !hasCard);
+                    minus.classList.toggle('disabled', repeats === 0);
                 }
-            });
 
-            minus.addEventListener('click', () => {
-                if (hasCard && repeats > 0) {
-                repeats--;
+                img.addEventListener('click', () => {
+                    hasCard = !hasCard;
+                    if (!hasCard) repeats = 0;
+                    updateUI();
+                });
+
+                plus.addEventListener('click', () => {
+                    if (hasCard) {
+                    repeats++;
+                    updateUI();
+                    }
+                });
+
+                minus.addEventListener('click', () => {
+                    if (hasCard && repeats > 0) {
+                    repeats--;
+                    updateUI();
+                    }
+                });
+
                 updateUI();
-                }
-            });
-
-            updateUI();
             }
         </script>
 
