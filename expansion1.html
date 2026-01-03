@@ -45,9 +45,22 @@
 
         <script>
             const baseUrl = "https://res.cloudinary.com/dbzcardcollection/image/upload/expansion1";
+            const TOTAL_CARDS = 129;
+            const STORAGE_KEY = "dbz_cards";
+
+            function loadCards() {
+                return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+            }
+
+            function saveCards(data) {
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+            }
+
+            const savedCards = loadCards();
+
             const images = [];
 
-            for (let i = 1; i <= 129; i++) {
+            for (let i = 1; i <= TOTAL_CARDS; i++) {
                 images.push(`${baseUrl}/${i}.jpg`);
             }
 
@@ -64,11 +77,11 @@
 
                 cardNumber.textContent = index + 1;
 
-                setupCounter(item);
+                setupCounter(item, index + 1);
                 grid.appendChild(clone);
             });
 
-            function setupCounter(item) {
+            function setupCounter(item, cardId) {
                 const img = item.querySelector('.card img');
                 const cardNumber = item.querySelector('.card-number');
                 const counter = item.querySelector('.counter');
@@ -76,8 +89,15 @@
                 const plus = item.querySelector('.plus');
                 const countEl = item.querySelector('.count');
 
-                let hasCard = false;
-                let repeats = 0;
+                const cardData = savedCards[cardId] || { hasCard: false, repeats: 0 };
+
+                                let hasCard = cardData.hasCard;
+                                let repeats = cardData.repeats;
+
+                function persist() {
+                    savedCards[cardId] = { hasCard, repeats };
+                    saveCards(savedCards);
+                }
 
                 function updateUI() {
                     countEl.textContent = hasCard ? repeats : "-";
@@ -93,12 +113,14 @@
                 img.addEventListener('click', () => {
                     hasCard = !hasCard;
                     if (!hasCard) repeats = 0;
+                    persist();
                     updateUI();
                 });
 
                 plus.addEventListener('click', () => {
                     if (hasCard) {
                         repeats++;
+                        persist();
                         updateUI();
                     }
                 });
@@ -106,11 +128,31 @@
                 minus.addEventListener('click', () => {
                     if (hasCard && repeats > 0) {
                         repeats--;
+                        persist();
                         updateUI();
                     }
                 });
 
                 updateUI();
+            }
+
+            function getSummary() {
+                const data = loadCards();
+                let obtenidas = 0;
+                let faltantes = 0;
+                let repetidas = 0;
+
+                for (let i = 1; i <= TOTAL_CARDS; i++) {
+                    const card = data[i];
+                    if (card?.hasCard) {
+                        obtenidas++;
+                        repetidas += card.repeats;
+                    } else {
+                        faltantes++;
+                    }
+                }
+
+                return { obtenidas, faltantes, repetidas };
             }
         </script>
 

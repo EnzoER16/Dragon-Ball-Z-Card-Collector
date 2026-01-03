@@ -137,8 +137,6 @@ header {
     border-radius: 12px;
     z-index: 5;
     pointer-events: none;
-
-    transition: all 0.2s ease;
 }
 
 .card-number.active {
