@@ -26,6 +26,7 @@
             <template id="item-template">
                 <div class="item">
                     <div class="card">
+                        <span class="card-number"></span>
                         <div class="background"></div>
                         <img class="disabled">
                     </div>
@@ -53,12 +54,15 @@
             const grid = document.getElementById("grid");
             const template = document.getElementById("item-template");
 
-            images.forEach(url => {
+            images.forEach((url, index) => {
                 const clone = template.content.cloneNode(true);
                 const item = clone.querySelector(".item");
                 const img = clone.querySelector(".card img");
+                const cardNumber = clone.querySelector(".card-number");
 
                 img.src = url;
+
+                cardNumber.textContent = index + 1;
 
                 setupCounter(item);
                 grid.appendChild(clone);
@@ -66,6 +70,7 @@
 
             function setupCounter(item) {
                 const img = item.querySelector('.card img');
+                const cardNumber = item.querySelector('.card-number');
                 const counter = item.querySelector('.counter');
                 const minus = item.querySelector('.minus');
                 const plus = item.querySelector('.plus');
@@ -76,8 +81,12 @@
 
                 function updateUI() {
                     countEl.textContent = hasCard ? repeats : "-";
+
                     img.classList.toggle('disabled', !hasCard);
                     counter.classList.toggle('disabled', !hasCard);
+
+                    cardNumber.classList.toggle('active', hasCard);
+
                     minus.classList.toggle('disabled', repeats === 0);
                 }
 
@@ -89,15 +98,15 @@
 
                 plus.addEventListener('click', () => {
                     if (hasCard) {
-                    repeats++;
-                    updateUI();
+                        repeats++;
+                        updateUI();
                     }
                 });
 
                 minus.addEventListener('click', () => {
                     if (hasCard && repeats > 0) {
-                    repeats--;
-                    updateUI();
+                        repeats--;
+                        updateUI();
                     }
                 });
 
