@@ -21,6 +21,13 @@
             </div>
         </header>
 
+        <header class="toolbar">
+            <button class="summary-btn" data-filter="all">Total: <span id="total">0</span></button>
+            <button class="summary-btn" data-filter="obtained">Obtenidas: <span id="obtained">0</span></button>
+            <button class="summary-btn" data-filter="missing">Faltantes: <span id="missing">0</span></button>
+            <button class="summary-btn" data-filter="repeated">Repetidas: <span id="repeated">0</span></button>
+        </header>
+
         <div class="grid" id="grid"></div>
 
             <template id="item-template">
@@ -48,6 +55,7 @@
             const TOTAL_CARDS = 129;
             const STORAGE_KEY = "dbz_cards";
 
+            /* local storage */
             function loadCards() {
                 return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
             }
@@ -58,6 +66,7 @@
 
             const savedCards = loadCards();
 
+            /* generate images */
             const images = [];
 
             for (let i = 1; i <= TOTAL_CARDS; i++) {
@@ -67,6 +76,7 @@
             const grid = document.getElementById("grid");
             const template = document.getElementById("item-template");
 
+            /* create cards */
             images.forEach((url, index) => {
                 const clone = template.content.cloneNode(true);
                 const item = clone.querySelector(".item");
@@ -74,13 +84,12 @@
                 const cardNumber = clone.querySelector(".card-number");
 
                 img.src = url;
-
                 cardNumber.textContent = index + 1;
-
                 setupCounter(item, index + 1);
                 grid.appendChild(clone);
             });
 
+            /* counter */
             function setupCounter(item, cardId) {
                 const img = item.querySelector('.card img');
                 const cardNumber = item.querySelector('.card-number');
@@ -90,13 +99,13 @@
                 const countEl = item.querySelector('.count');
 
                 const cardData = savedCards[cardId] || { hasCard: false, repeats: 0 };
-
-                                let hasCard = cardData.hasCard;
-                                let repeats = cardData.repeats;
+                let hasCard = cardData.hasCard;
+                let repeats = cardData.repeats;
 
                 function persist() {
                     savedCards[cardId] = { hasCard, repeats };
                     saveCards(savedCards);
+                    updateSummaryUI();
                 }
 
                 function updateUI() {
@@ -104,9 +113,7 @@
 
                     img.classList.toggle('disabled', !hasCard);
                     counter.classList.toggle('disabled', !hasCard);
-
                     cardNumber.classList.toggle('active', hasCard);
-
                     minus.classList.toggle('disabled', repeats === 0);
                 }
 
@@ -136,6 +143,7 @@
                 updateUI();
             }
 
+            /* summary */
             function getSummary() {
                 const data = loadCards();
                 let obtenidas = 0;
@@ -154,6 +162,54 @@
 
                 return { obtenidas, faltantes, repetidas };
             }
+
+            function updateSummaryUI() {
+                const summary = getSummary();
+
+                document.getElementById("total").textContent = TOTAL_CARDS;
+                document.getElementById("obtained").textContent = summary.obtenidas;
+                document.getElementById("missing").textContent = summary.faltantes;
+                document.getElementById("repeated").textContent = summary.repetidas;
+            }
+
+            /* filters */
+            document.querySelectorAll(".summary-btn").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    filterCards(btn.dataset.filter);
+                });
+            });
+
+            function filterCards(type) {
+                const data = loadCards();
+                const items = document.querySelectorAll(".item");
+
+                items.forEach((item, index) => {
+                    const cardId = index + 1;
+                    const card = data[cardId];
+
+                    let show = false;
+
+                    switch (type) {
+                        case "all":
+                            show = true;
+                            break;
+                        case "obtained":
+                            show = card?.hasCard;
+                            break;
+                        case "missing":
+                            show = !card?.hasCard;
+                            break;
+                        case "repeated":
+                            show = card?.hasCard && card.repeats > 0;
+                            break;
+                    }
+
+                    item.style.display = show ? "" : "none";
+                });
+            }
+
+            /* init */
+            updateSummaryUI();
         </script>
 
     </body>

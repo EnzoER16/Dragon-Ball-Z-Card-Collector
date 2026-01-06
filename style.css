@@ -65,6 +65,28 @@ header {
     padding: 10px;
 }
 
+/* toolbar */
+
+.toolbar {
+    display: flex;
+    gap: 10px;
+    padding: 8px;
+    background-color: #545454;
+}
+
+.summary-btn {
+    background: #333;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.summary-btn:hover {
+    background: #777;
+}
+
 /* cards grid */
 
 .grid { 
