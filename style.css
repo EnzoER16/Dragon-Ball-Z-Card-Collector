@@ -77,7 +77,7 @@ header {
     white-space: nowrap;
 }
 
-.btn {
+.summary-btn {
     flex-shrink: 0;
     background: #333;
     color: white;
@@ -87,7 +87,7 @@ header {
     border-radius: 4px;
 }
 
-.btn:hover {
+.summary-btn:hover {
     background: #777;
 }
 
