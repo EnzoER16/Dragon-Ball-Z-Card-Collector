@@ -72,9 +72,13 @@ header {
     gap: 10px;
     padding: 8px;
     background-color: #545454;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
 }
 
-.summary-btn {
+.btn {
+    flex-shrink: 0;
     background: #333;
     color: white;
     border: none;
@@ -83,7 +87,7 @@ header {
     border-radius: 4px;
 }
 
-.summary-btn:hover {
+.btn:hover {
     background: #777;
 }
 
