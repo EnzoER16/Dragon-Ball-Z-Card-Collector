@@ -72,14 +72,6 @@ header {
     gap: 10px;
     padding: 8px;
     background-color: #545454;
-    overflow-x: auto;
-    overflow-y: hidden;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
-}
-
-.toolbar::-webkit-scrollbar {
-    display: none;
 }
 
 .summary-btn {
@@ -94,6 +86,20 @@ header {
 
 .summary-btn:hover {
     background: #777;
+}
+
+@media (max-width: 480px) {
+    .toolbar {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 6px;
+    }
+
+    .summary-btn {
+        padding: 6px 4px;
+        font-size: 12px;
+        white-space: nowrap;
+    }
 }
 
 /* cards grid */
