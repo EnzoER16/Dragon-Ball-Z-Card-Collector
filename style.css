@@ -65,6 +65,12 @@ header {
     padding: 10px;
 }
 
+@media (min-width: 992px) {
+    .expansion-card {
+        max-width: 850px;
+    }
+}
+
 /* toolbar */
 
 .toolbar {
