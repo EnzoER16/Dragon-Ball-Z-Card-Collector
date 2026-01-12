@@ -138,6 +138,10 @@
                 });
 
                 plus.addEventListener('click', () => {
+                    const realData = savedCards[cardId] || { hasCard: false, repeats: 0 };
+                    hasCard = realData.hasCard;
+                    repeats = realData.repeats;
+
                     if (hasCard) {
                         repeats++;
                         persist();
@@ -146,6 +150,10 @@
                 });
 
                 minus.addEventListener('click', () => {
+                    const realData = savedCards[cardId] || { hasCard: false, repeats: 0 };
+                    hasCard = realData.hasCard;
+                    repeats = realData.repeats;
+
                     if (hasCard && repeats > 0) {
                         repeats--;
                         persist();
@@ -346,7 +354,7 @@
                     try {
                         const data = JSON.parse(reader.result);
                         saveCards(data);
-                        location.reload(); // recarga para reflejar cambios
+                        location.reload();
                     } catch {
                         alert("Archivo JSON inválido");
                     }
