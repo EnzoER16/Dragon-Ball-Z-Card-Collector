@@ -55,6 +55,23 @@
             <input type="text" placeholder="Buscar: 1, 3, 15..." />
         </div>
 
+        <div id="copyModal" class="modal">
+            <div class="modal-content">
+                <h3>Copiar cartas</h3>
+
+                <div class="copy-options">
+                    <button data-type="missing">Faltantes</button>
+                    <button data-type="repeated">Repetidas</button>
+                </div>
+
+                <textarea id="copyPreview" rows="4" readonly></textarea>
+                <div id="copyCount"></div>
+                
+                <button id="confirmCopy">Copiar</button>
+                <button class="close">Cancelar</button>
+            </div>
+        </div>
+
         <div class="grid" id="grid"></div>
 
             <template id="item-template">
@@ -338,6 +355,95 @@
 
                 updateSummaryUI();
                 updateMarkAllButton();
+            }
+
+            /* copy cards */
+            const copyBtn = document.querySelector(".copy_button");
+            const copyModal = document.getElementById("copyModal");
+            const preview = document.getElementById("copyPreview");
+            const confirmCopy = document.getElementById("confirmCopy");
+            const copyCountEl = document.getElementById("copyCount");
+
+            let currentCopyText = "";
+
+            copyBtn.addEventListener("click", () => {
+                copyModal.style.display = "flex";
+
+                const defaultType = "missing";
+                currentCopyText = generateCopyText(defaultType);
+                preview.value = currentCopyText || "No hay cartas para copiar";
+
+                updateCopyCount(defaultType);
+            });
+
+            copyModal.addEventListener("click", e => {
+                if (e.target === copyModal) copyModal.style.display = "none";
+            });
+
+            copyModal.querySelector(".close").addEventListener("click", () => {
+                copyModal.style.display = "none";
+            });
+
+            copyModal.querySelectorAll("button[data-type]").forEach(btn => {
+                btn.addEventListener("click", () => {
+                    const type = btn.dataset.type;
+                    currentCopyText = generateCopyText(type);
+                    preview.value = currentCopyText || "No hay cartas para copiar";
+
+                    updateCopyCount(type);
+                });
+            });
+
+            confirmCopy.addEventListener("click", () => {
+                if (!currentCopyText) return;
+                navigator.clipboard.writeText(currentCopyText);
+                alert("Cartas copiadas al portapapeles");
+                copyModal.style.display = "none";
+            });
+
+            function generateCopyText(type) {
+                const data = loadCards();
+                const result = [];
+
+                for (let i = 1; i <= TOTAL_CARDS; i++) {
+                    const card = data[i];
+
+                    if (type === "obtained" && card?.hasCard) {
+                        result.push(i);
+                    }
+
+                    if (type === "missing" && !card?.hasCard) {
+                        result.push(i);
+                    }
+
+                    if (type === "repeated" && card?.hasCard && card.repeats > 0) {
+                        if (card.repeats === 1) {
+                            result.push(`${i}`);
+                        } else {
+                            result.push(`${i}(x${card.repeats})`);
+                        }
+                    }
+                }
+
+                return result.join(", ");
+            }
+
+            function updateCopyCount(type) {
+                const data = loadCards();
+                let count = 0;
+
+                for (let i = 1; i <= TOTAL_CARDS; i++) {
+                    const card = data[i];
+                    if (type === "obtained" && card?.hasCard) count++;
+                    if (type === "missing" && !card?.hasCard) count++;
+                    if (type === "repeated" && card?.hasCard && card.repeats > 0) {
+                        count += card.repeats;
+                    }
+                }
+
+                if (type === "obtained") copyCountEl.textContent = `Obtenidas: ${count}`;
+                if (type === "missing") copyCountEl.textContent = `Faltantes: ${count}`;
+                if (type === "repeated") copyCountEl.textContent = `Repetidas: ${count}`;
             }
 
             /* init */
