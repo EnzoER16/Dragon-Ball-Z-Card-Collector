@@ -97,6 +97,7 @@ header {
 }
 
 /* search bar */
+
 .search_bar {
     width: 100%;
     padding: 5px;
@@ -113,7 +114,7 @@ header {
 }
 
 .search_bar input::placeholder {
-    color: #888; /* Color del texto del placeholder */
+    color: #888;
 }
 
 /* expansion cards */
