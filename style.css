@@ -32,10 +32,6 @@ header {
     padding-top: 6px;
 }
 
-.header_text {
-    color: #FFB10A;
-}
-
 .header_button_div {
     padding-right: 10px;
     display: flex;
