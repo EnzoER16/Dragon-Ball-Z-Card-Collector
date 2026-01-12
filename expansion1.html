@@ -16,14 +16,17 @@
             <div class="header_image_div">
                 <img class="header_image" src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603421/box1.png">
             </div>
+
             <div class="header_text_div">
                 <div class="header_text"><h4><strong>Expansión 1</strong></h4></div>
             </div>
+
             <div class="header_button_div">
-                <button class="search_button">
+                <button class="search_button" id="searchToggle">
                     <img class="icon icon-search" src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1768184069/search.png" alt="Buscar">
                 </button>
             </div>
+
             <div class="header_button_div">
                 <button id="markAllBtn" aria-label="Marcar todas">
                     <img class="icon icon-mark" src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1768183093/check.png" alt="Marcar todas">
@@ -41,6 +44,10 @@
             <button id="importBtn">Importar JSON</button>
             <input type="file" id="importInput" accept=".json" hidden> -->
         </header>
+
+        <div class="search_bar" id="searchBar">
+            <input type="text" placeholder="Buscar: 1, 3, 15..." />
+        </div>
 
         <div class="grid" id="grid"></div>
 
@@ -329,6 +336,17 @@
 
             /* init */
             updateSummaryUI();
+
+            /* search bar */
+            document.addEventListener("DOMContentLoaded", () => {
+                const toggleBtn = document.getElementById("searchToggle");
+                const searchBar = document.getElementById("searchBar");
+
+                toggleBtn.addEventListener("click", () => {
+                    searchBar.style.display =
+                        searchBar.style.display === "block" ? "none" : "block";
+                });
+            });
 
             /* export json */
             document.getElementById("exportBtn").addEventListener("click", () => {
