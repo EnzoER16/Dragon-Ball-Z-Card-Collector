@@ -22,7 +22,13 @@
             </div>
 
             <div class="header_button_div">
-                <button class="search_button" id="searchToggle"  title="Buscar cartas">
+                <button class="copy_button" title="Copiar cartas">
+                    <img class="icon icon-copy" src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1768245591/copy.png" alt="Copiar">
+                </button>
+            </div>
+
+            <div class="header_button_div">
+                <button class="search_button" id="searchToggle" title="Buscar cartas">
                     <img class="icon icon-search" src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1768184069/search.png" alt="Buscar">
                 </button>
             </div>
@@ -336,6 +342,7 @@
 
             /* init */
             updateSummaryUI();
+            updateMarkAllButton();
 
             /* search bar */
             document.addEventListener("DOMContentLoaded", () => {
@@ -372,7 +379,6 @@
                             card.style.display = "block";
                         } else {
                             card.style.display = "none";
-                            card.style.border = "1px solid #ccc";
                         }
                     });
                 }

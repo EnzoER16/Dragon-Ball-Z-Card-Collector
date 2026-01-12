@@ -42,8 +42,29 @@ header {
     align-items: center;
 }
 
+.copy_button {
+    background-color: #fff4cc;
+    border: none;
+    padding: 6px 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.copy_button .icon {
+    width: 20px;
+    height: 20px;
+    display: none;
+}
+
+.copy_button .icon-copy {
+    display: block;
+}
+
 .search_button {
-    background-color: #cdcdcd;
+    background-color: #e7f1ff;
     border: none;
     padding: 6px 10px;
     cursor: pointer;
