@@ -345,7 +345,37 @@
                 toggleBtn.addEventListener("click", () => {
                     searchBar.style.display =
                         searchBar.style.display === "block" ? "none" : "block";
+
+                    if (searchBar.style.display === "block") {
+                        searchBar.querySelector("input").focus();
+                    }
                 });
+
+                const searchInput = searchBar.querySelector("input");
+
+                searchInput.addEventListener("input", () => {
+                    const query = searchInput.value
+                        .split(",")
+                        .map(n => n.trim())
+                        .filter(n => n !== "");
+
+                    filterCards(query);
+                });
+
+                function filterCards(numbers) {
+                    const cards = document.querySelectorAll(".item");
+
+                    cards.forEach(card => {
+                        const cardNumber = card.querySelector(".card-number").textContent;
+
+                        if (numbers.length === 0 || numbers.includes(cardNumber)) {
+                            card.style.display = "block";
+                        } else {
+                            card.style.display = "none";
+                            card.style.border = "1px solid #ccc";
+                        }
+                    });
+                }
             });
 
             /* export json */
