@@ -36,6 +36,26 @@ header {
     color: #FFB10A;
 }
 
+.header_button_div {
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+}
+
+#markAllBtn {
+    background-color: #2e7d32;
+    color: #ffffff;
+    border: none;
+    padding: 6px 10px;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+#markAllBtn:hover {
+    background-color: #1b5e20;
+}
+
 /* expansion cards */
 
 .expansion-card {

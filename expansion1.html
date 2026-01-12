@@ -19,6 +19,9 @@
             <div class="header_text_div">
                 <div class="header_text"><h4><strong>Expansión 1</strong></h4></div>
             </div>
+            <div class="header_button_div">
+                <button id="markAllBtn">Marcar todas</button>
+            </div>
         </header>
 
         <header class="toolbar">
@@ -54,6 +57,7 @@
             </template>
 
         <script>
+            /* configuration */
             const baseUrl = "https://res.cloudinary.com/dbzcardcollection/image/upload/expansion1";
             const TOTAL_CARDS = 129;
             const STORAGE_KEY = "dbz_cards";
@@ -76,10 +80,11 @@
                 images.push(`${baseUrl}/${i}.jpg`);
             }
 
+            /* create grid */
+
             const grid = document.getElementById("grid");
             const template = document.getElementById("item-template");
 
-            /* create cards */
             images.forEach((url, index) => {
                 const clone = template.content.cloneNode(true);
                 const item = clone.querySelector(".item");
@@ -88,6 +93,7 @@
 
                 img.src = url;
                 cardNumber.textContent = index + 1;
+
                 setupCounter(item, index + 1);
                 grid.appendChild(clone);
             });
@@ -113,7 +119,6 @@
 
                 function updateUI() {
                     countEl.textContent = hasCard ? repeats : "-";
-
                     img.classList.toggle('disabled', !hasCard);
                     counter.classList.toggle('disabled', !hasCard);
                     cardNumber.classList.toggle('active', hasCard);
@@ -121,8 +126,13 @@
                 }
 
                 img.addEventListener('click', () => {
+                    const realData = savedCards[cardId] || { hasCard: false, repeats: 0 };
+                    hasCard = realData.hasCard;
+                    repeats = realData.repeats;
+
                     hasCard = !hasCard;
                     if (!hasCard) repeats = 0;
+
                     persist();
                     updateUI();
                 });
@@ -168,7 +178,6 @@
 
             function updateSummaryUI() {
                 const summary = getSummary();
-
                 document.getElementById("total").textContent = TOTAL_CARDS;
                 document.getElementById("obtained").textContent = summary.obtenidas;
                 document.getElementById("missing").textContent = summary.faltantes;
@@ -210,6 +219,40 @@
                     item.style.display = show ? "" : "none";
                 });
             }
+
+            /* mark all cards */
+            function markAllCards() {
+                for (let i = 1; i <= TOTAL_CARDS; i++) {
+                    savedCards[i] = {
+                        hasCard: true,
+                        repeats: 0
+                    };
+                }
+
+                saveCards(savedCards);
+
+                document.querySelectorAll(".item").forEach(item => {
+                    const img = item.querySelector('.card img');
+                    const cardNumber = item.querySelector('.card-number');
+                    const counter = item.querySelector('.counter');
+                    const countEl = item.querySelector('.count');
+                    const minus = item.querySelector('.minus');
+
+                    img.classList.remove('disabled');
+                    counter.classList.remove('disabled');
+                    cardNumber.classList.add('active');
+                    countEl.textContent = 0;
+                    minus.classList.add('disabled');
+                });
+
+                updateSummaryUI();
+            }
+
+            document.getElementById("markAllBtn").addEventListener("click", () => {
+                if (confirm("¿Marcar todas las cartas como obtenidas?")) {
+                    markAllCards();
+                }
+            });
 
             /* init */
             updateSummaryUI();
