@@ -44,24 +44,35 @@ header {
 
 #markAllBtn {
     background-color: #2e7d32;
-    color: #ffffff;
     border: none;
     padding: 6px 10px;
-    font-weight: bold;
     cursor: pointer;
     border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-#markAllBtn:hover {
-    background-color: #1b5e20;
+#markAllBtn .icon {
+    width: 20px;
+    height: 20px;
+    display: none;
+}
+
+#markAllBtn .icon-mark {
+    display: block;
 }
 
 #markAllBtn.active {
     background-color: #c62828;
 }
 
-#markAllBtn.active:hover {
-    background-color: #8e0000;
+#markAllBtn.active .icon-mark {
+    display: none;
+}
+
+#markAllBtn.active .icon-unmark {
+    display: block;
 }
 
 /* expansion cards */

@@ -20,7 +20,10 @@
                 <div class="header_text"><h4><strong>Expansión 1</strong></h4></div>
             </div>
             <div class="header_button_div">
-                <button id="markAllBtn">Marcar todas</button>
+                <button id="markAllBtn" aria-label="Marcar todas">
+                    <img class="icon icon-mark" src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1768183093/check.png" alt="Marcar todas">
+                    <img class="icon icon-unmark" src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1768182898/cross.png" alt="Desmarcar todas">
+                </button>
             </div>
         </header>
 
@@ -285,11 +288,11 @@
                 const btn = document.getElementById("markAllBtn");
 
                 if (areAllCardsMarked()) {
-                    btn.textContent = "Desmarcar todas";
                     btn.classList.add("active");
+                    btn.setAttribute("aria-label", "Desmarcar todas");
                 } else {
-                    btn.textContent = "Marcar todas";
                     btn.classList.remove("active");
+                    btn.setAttribute("aria-label", "Marcar todas");
                 }
             }
 
