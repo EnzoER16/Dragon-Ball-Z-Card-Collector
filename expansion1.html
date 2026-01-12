@@ -81,7 +81,6 @@
             }
 
             /* create grid */
-
             const grid = document.getElementById("grid");
             const template = document.getElementById("item-template");
 
@@ -115,6 +114,7 @@
                     savedCards[cardId] = { hasCard, repeats };
                     saveCards(savedCards);
                     updateSummaryUI();
+                    updateMarkAllButton();
                 }
 
                 function updateUI() {
@@ -246,13 +246,70 @@
                 });
 
                 updateSummaryUI();
+                updateMarkAllButton();
             }
 
-            document.getElementById("markAllBtn").addEventListener("click", () => {
-                if (confirm("¿Marcar todas las cartas como obtenidas?")) {
-                    markAllCards();
+			document.getElementById("markAllBtn").addEventListener("click", () => {
+    			if (areAllCardsMarked()) {
+        			if (confirm("¿Desmarcar todas las cartas?")) {
+            			unmarkAllCards();
+        			}
+    			} else {
+        			if (confirm("¿Marcar todas las cartas como obtenidas?")) {
+            			markAllCards();
+        			}
+    			}
+			});
+
+            /* unmark all cards */
+            function areAllCardsMarked() {
+                const data = loadCards();
+
+                for (let i = 1; i <= TOTAL_CARDS; i++) {
+                    if (!data[i]?.hasCard) {
+                        return false;
+                    }
                 }
-            });
+                return true;
+            }
+
+            function updateMarkAllButton() {
+                const btn = document.getElementById("markAllBtn");
+
+                if (areAllCardsMarked()) {
+                    btn.textContent = "Desmarcar todas";
+                    btn.classList.add("active");
+                } else {
+                    btn.textContent = "Marcar todas";
+                    btn.classList.remove("active");
+                }
+            }
+
+            function unmarkAllCards() {
+                for (let i = 1; i <= TOTAL_CARDS; i++) {
+                    savedCards[i] = {
+                        hasCard: false,
+                        repeats: 0
+                    };
+                }
+
+                saveCards(savedCards);
+
+                document.querySelectorAll(".item").forEach(item => {
+                    const img = item.querySelector('.card img');
+                    const cardNumber = item.querySelector('.card-number');
+                    const counter = item.querySelector('.counter');
+                    const countEl = item.querySelector('.count');
+
+                    img.classList.add('disabled');
+                    counter.classList.add('disabled');
+                    cardNumber.classList.remove('active');
+                    countEl.textContent = "-";
+                });
+
+                updateSummaryUI();
+                updateMarkAllButton();
+            }
 
             /* init */
             updateSummaryUI();
