@@ -1,8 +1,11 @@
 document.addEventListener("DOMContentLoaded", () => {
     /* configuration */
-    const baseUrl = "https://res.cloudinary.com/dbzcardcollection/image/upload/expansion1";
-    const TOTAL_CARDS = 129;
-    const STORAGE_KEY = "dbz_cards";
+    const { expansion, startNumber, endNumber } = window.DBZ_CONFIG;
+
+    const TOTAL_CARDS = endNumber - startNumber + 1;
+
+    const baseUrl = `https://res.cloudinary.com/dbzcardcollection/image/upload/${expansion}`;
+    const STORAGE_KEY = `dbz_cards_${expansion}`;
 
     /* local storage */
     function loadCards() {
@@ -18,7 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
     /* generate images */
     const images = [];
 
-    for (let i = 1; i <= TOTAL_CARDS; i++) {
+    for (let i = startNumber; i <= endNumber; i++) {
         images.push(`${baseUrl}/${i}.jpg`);
     }
 
@@ -31,11 +34,12 @@ document.addEventListener("DOMContentLoaded", () => {
         const item = clone.querySelector(".item");
         const img = clone.querySelector(".card img");
         const cardNumber = clone.querySelector(".card-number");
+        const realNumber = startNumber + index;
 
         img.src = url;
-        cardNumber.textContent = index + 1;
+        cardNumber.textContent = realNumber;
 
-        setupCounter(item, index + 1);
+        setupCounter(item, realNumber);
         grid.appendChild(clone);
     });
 
@@ -113,7 +117,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let faltantes = 0;
         let repetidas = 0;
 
-        for (let i = 1; i <= TOTAL_CARDS; i++) {
+        for (let i = startNumber; i <= endNumber; i++) {
             const card = data[i];
             if (card?.hasCard) {
                 obtenidas++;
@@ -142,11 +146,12 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     function filterCards(type) {
+        searchInput.value = "";
         const data = loadCards();
         const items = document.querySelectorAll(".item");
 
         items.forEach((item, index) => {
-            const cardId = index + 1;
+            const cardId = startNumber + index;
             const card = data[cardId];
 
             let show = false;
@@ -172,7 +177,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* mark all cards */
     function markAllCards() {
-        for (let i = 1; i <= TOTAL_CARDS; i++) {
+        for (let i = startNumber; i <= endNumber; i++) {
             savedCards[i] = {
                 hasCard: true,
                 repeats: 0
@@ -215,7 +220,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function areAllCardsMarked() {
         const data = loadCards();
 
-        for (let i = 1; i <= TOTAL_CARDS; i++) {
+        for (let i = startNumber; i <= endNumber; i++) {
             if (!data[i]?.hasCard) {
                 return false;
             }
@@ -236,7 +241,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function unmarkAllCards() {
-        for (let i = 1; i <= TOTAL_CARDS; i++) {
+        for (let i = startNumber; i <= endNumber; i++) {
             savedCards[i] = {
                 hasCard: false,
                 repeats: 0
@@ -309,7 +314,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = loadCards();
         const result = [];
 
-        for (let i = 1; i <= TOTAL_CARDS; i++) {
+        for (let i = startNumber; i <= endNumber; i++) {
             const card = data[i];
 
             if (type === "obtained" && card?.hasCard) {
@@ -336,7 +341,7 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = loadCards();
         let count = 0;
 
-        for (let i = 1; i <= TOTAL_CARDS; i++) {
+        for (let i = startNumber; i <= endNumber; i++) {
             const card = data[i];
             if (type === "obtained" && card?.hasCard) count++;
             if (type === "missing" && !card?.hasCard) count++;
@@ -355,44 +360,42 @@ document.addEventListener("DOMContentLoaded", () => {
     updateMarkAllButton();
 
     /* search bar */
-    document.addEventListener("DOMContentLoaded", () => {
-        const toggleBtn = document.getElementById("searchToggle");
-        const searchBar = document.getElementById("searchBar");
+    const toggleBtn = document.getElementById("searchToggle");
+    const searchBar = document.getElementById("searchBar");
 
-        toggleBtn.addEventListener("click", () => {
-            searchBar.style.display =
-                searchBar.style.display === "block" ? "none" : "block";
+    toggleBtn.addEventListener("click", () => {
+        searchBar.style.display =
+            searchBar.style.display === "block" ? "none" : "block";
 
-            if (searchBar.style.display === "block") {
-                searchBar.querySelector("input").focus();
-            }
-        });
-
-        const searchInput = searchBar.querySelector("input");
-
-        searchInput.addEventListener("input", () => {
-            const query = searchInput.value
-                .split(",")
-                .map(n => n.trim())
-                .filter(n => n !== "");
-
-            filterCards(query);
-        });
-
-        function filterCards(numbers) {
-            const cards = document.querySelectorAll(".item");
-
-            cards.forEach(card => {
-                const cardNumber = card.querySelector(".card-number").textContent;
-
-                if (numbers.length === 0 || numbers.includes(cardNumber)) {
-                    card.style.display = "block";
-                } else {
-                    card.style.display = "none";
-                }
-            });
+        if (searchBar.style.display === "block") {
+            searchBar.querySelector("input").focus();
         }
     });
+
+    const searchInput = searchBar.querySelector("input");
+
+    searchInput.addEventListener("input", () => {
+        const query = searchInput.value
+            .split(",")
+            .map(n => n.trim())
+            .filter(n => n !== "");
+
+        filterCardsBySearch(query);
+    });
+
+    function filterCardsBySearch(numbers) {
+        const cards = document.querySelectorAll(".item");
+
+        cards.forEach(card => {
+            const cardNumber = card.querySelector(".card-number").textContent.trim();
+
+            if (numbers.length === 0 || numbers.includes(cardNumber)) {
+                card.style.display = "";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    }
 
     /* export json */
     document.getElementById("exportBtn").addEventListener("click", () => {
