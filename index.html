@@ -92,7 +92,7 @@
                 
             </div>
 
-            <div class="card expansion-card shadow-sm rounded-4 mx-auto mb-4"
+            <div id="card-uniques" class="card expansion-card shadow-sm rounded-4 mx-auto mb-4"
             style="background: linear-gradient(135deg, #0072ff 0%, #00c6ff 25%, #5aff15 50%, #f9f047 75%, #ff6b00 100%);">
                 <div class="card_image_div">
                     <img class="card_image" src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1767481281/goku.png">
@@ -124,6 +124,10 @@
 
             cards[4].addEventListener('click', () => {
                 window.location.href = 'expansion5.html';});
+
+            document.getElementById('card-uniques').addEventListener('click', () => {
+                window.location.href = 'uniques.html';
+            });
         </script>
 
     </body>

@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
     /* configuration */
-    const { expansion, startNumber, endNumber, ranges, specials } = window.DBZ_CONFIG;
+    const { expansion, startNumber, endNumber, ranges, specials, uniques } = window.DBZ_CONFIG;
 
     const cardsList = [];
 
@@ -35,6 +35,18 @@ document.addEventListener("DOMContentLoaded", () => {
                 id: String(i),
                 label: String(i),
                 url: `${baseUrl}/${i}.jpg`
+            });
+        }
+    }
+
+    if (uniques) {
+        for (let i = uniques.from; i <= uniques.to; i++) {
+            const id = `${uniques.prefix}${i}`;
+            const label = uniques.labels[i - uniques.from]; // número que se ve en la carta
+            cardsList.push({
+                id,
+                label, // esto se mostrará en la carta
+                url: `${baseUrl}/${id}.jpg`
             });
         }
     }
