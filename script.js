@@ -56,7 +56,33 @@ document.addEventListener("DOMContentLoaded", () => {
     const grid = document.getElementById("grid");
     const template = document.getElementById("item-template");
 
+    function addSection(title) {
+        const section = document.createElement("div");
+        section.className = "section-title";
+        section.textContent = title;
+        grid.appendChild(section);
+    }
+
+let currentSection = "";
+
     cardsList.forEach(card => {
+
+        let sectionName = "";
+
+        if (card.id.startsWith("F")) {
+            sectionName = "Cartas fantasma o especiales";
+        } else {
+            const n = parseInt(card.id, 10);
+
+            if (n >= 402 && n <= 407) sectionName = "Cartas ocultas";
+            else if (n >= 408 && n <= 543) sectionName = "Expansión 4";
+        }
+
+        if (sectionName && sectionName !== currentSection) {
+            addSection(sectionName);
+            currentSection = sectionName;
+        }
+
         const clone = template.content.cloneNode(true);
         const item = clone.querySelector(".item");
         const img = clone.querySelector(".card img");

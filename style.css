@@ -351,6 +351,17 @@ header {
     color: #ffffff;
 }
 
+.section-title {
+    grid-column: 1 / -1;
+    margin: 10px 0 10px;
+    padding: 5px 15px;
+    font-size: 18px;
+    font-weight: bold;
+    background: #222;
+    color: #fff;
+    border-radius: 4px;
+}
+
 /* counter */
 
 .counter {
