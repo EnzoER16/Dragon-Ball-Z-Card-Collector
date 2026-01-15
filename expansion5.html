@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="style.css">
+        <script>
+            window.DBZ_CONFIG = {
+                expansion: "expansion5",
+                startNumber: 544,
+                endNumber: 679
+            };
+        </script>
+        <script src="script.js" defer></script>
+        <title>DBZ Card Tracker - Expansión 5</title>
+        <link rel="icon" href="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603421/icon.png">
+    </head>
+
+    <body style="background-color: #EDD60A;">
+
+        <header>
+            <div class="header_image_div">
+                <img class="header_image" src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766603421/box5.png">
+            </div>
+
+            <div class="header_text_div">
+                <div class="header_text" style="color: #EDD60A;"><h4><strong>Expansión 5</strong></h4></div>
+            </div>
+
+            <div class="header_button_div">
+                <button class="copy_button" title="Copiar cartas">
+                    <img class="icon icon-copy" src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1768245591/copy.png" alt="Copiar">
+                </button>
+            </div>
+
+            <div class="header_button_div">
+                <button class="search_button" id="searchToggle" title="Buscar cartas">
+                    <img class="icon icon-search" src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1768184069/search.png" alt="Buscar">
+                </button>
+            </div>
+
+            <div class="header_button_div">
+                <button id="markAllBtn" aria-label="Marcar todas">
+                    <img class="icon icon-mark" src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1768183093/check.png" alt="Marcar todas" title="Marcar todas">
+                    <img class="icon icon-unmark" src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1768182898/cross.png" alt="Desmarcar todas" title="Desmarcar todas">
+                </button>
+            </div>
+        </header>
+
+        <header class="toolbar">
+            <button class="summary-btn" data-filter="all">Total: <span id="total">0</span></button>
+            <button class="summary-btn" data-filter="obtained">Obtenidas: <span id="obtained">0</span></button>
+            <button class="summary-btn" data-filter="missing">Faltantes: <span id="missing">0</span></button>
+            <button class="summary-btn" data-filter="repeated">Repetidas: <span id="repeated">0</span></button>
+            <!-- <button id="exportBtn">Exportar JSON</button>
+            <button id="importBtn">Importar JSON</button>
+            <input type="file" id="importInput" accept=".json" hidden> -->
+        </header>
+
+        <div class="search_bar" id="searchBar">
+            <input type="text" placeholder="Buscar: 1, 3, 15..." />
+        </div>
+
+        <div id="copyModal" class="modal">
+            <div class="modal-content">
+                <h3>Copiar cartas</h3>
+
+                <div class="copy-options">
+                    <button data-type="missing">Faltantes</button>
+                    <button data-type="repeated">Repetidas</button>
+                </div>
+
+                <textarea id="copyPreview" rows="4" readonly></textarea>
+                <div id="copyCount"></div>
+                
+                <button id="confirmCopy">Copiar</button>
+                <button class="close">Cancelar</button>
+            </div>
+        </div>
+
+        <div class="grid" id="grid"></div>
+
+            <template id="item-template">
+                <div class="item">
+                    <div class="card">
+                        <span class="card-number"></span>
+                        <div class="background"></div>
+                        <img class="disabled">
+                    </div>
+
+                    <div class="counter">
+                        <button class="minus">
+                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983495/minus.png" alt="restar">
+                        </button>
+                        <span class="count">0</span>
+                        <button class="plus">
+                        <img src="https://res.cloudinary.com/dbzcardcollection/image/upload/v1766983505/plus.png" alt="sumar">
+                        </button>
+                    </div>
+                </div>
+            </template>
+
+    </body>
+
+</html>

@@ -63,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
         grid.appendChild(section);
     }
 
-let currentSection = "";
+    let currentSection = "";
 
     cardsList.forEach(card => {
 
