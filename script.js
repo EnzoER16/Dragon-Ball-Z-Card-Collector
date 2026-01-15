@@ -1,11 +1,45 @@
 document.addEventListener("DOMContentLoaded", () => {
     /* configuration */
-    const { expansion, startNumber, endNumber } = window.DBZ_CONFIG;
+    const { expansion, startNumber, endNumber, ranges, specials } = window.DBZ_CONFIG;
 
-    const TOTAL_CARDS = endNumber - startNumber + 1;
+    const cardsList = [];
 
     const baseUrl = `https://res.cloudinary.com/dbzcardcollection/image/upload/${expansion}`;
     const STORAGE_KEY = `dbz_cards_${expansion}`;
+
+    /* build cards list */
+    if (ranges && expansion === "expansion4") {
+        ranges.forEach(r => {
+            for (let i = r.from; i <= r.to; i++) {
+                cardsList.push({
+                    id: String(i),
+                    label: String(i),
+                    url: `${baseUrl}/${i}.jpg`
+                });
+            }
+        });
+
+        if (specials) {
+            for (let i = specials.from; i <= specials.to; i++) {
+                const id = `${specials.prefix}${i}`;
+                cardsList.push({
+                    id,
+                    label: id,
+                    url: `${baseUrl}/${id}.jpg`
+                });
+            }
+        }
+    } else {
+        for (let i = startNumber; i <= endNumber; i++) {
+            cardsList.push({
+                id: String(i),
+                label: String(i),
+                url: `${baseUrl}/${i}.jpg`
+            });
+        }
+    }
+
+    const TOTAL_CARDS = cardsList.length;
 
     /* local storage */
     function loadCards() {
@@ -18,28 +52,21 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const savedCards = loadCards();
 
-    /* generate images */
-    const images = [];
-
-    for (let i = startNumber; i <= endNumber; i++) {
-        images.push(`${baseUrl}/${i}.jpg`);
-    }
-
     /* create grid */
     const grid = document.getElementById("grid");
     const template = document.getElementById("item-template");
 
-    images.forEach((url, index) => {
+    cardsList.forEach(card => {
         const clone = template.content.cloneNode(true);
         const item = clone.querySelector(".item");
         const img = clone.querySelector(".card img");
         const cardNumber = clone.querySelector(".card-number");
-        const realNumber = startNumber + index;
 
-        img.src = url;
-        cardNumber.textContent = realNumber;
+        img.src = card.url;
+        img.alt = card.label;
+        cardNumber.textContent = card.label;
 
-        setupCounter(item, realNumber);
+        setupCounter(item, card.id);
         grid.appendChild(clone);
     });
 
@@ -72,22 +99,13 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         img.addEventListener('click', () => {
-            const realData = savedCards[cardId] || { hasCard: false, repeats: 0 };
-            hasCard = realData.hasCard;
-            repeats = realData.repeats;
-
             hasCard = !hasCard;
             if (!hasCard) repeats = 0;
-
             persist();
             updateUI();
         });
 
         plus.addEventListener('click', () => {
-            const realData = savedCards[cardId] || { hasCard: false, repeats: 0 };
-            hasCard = realData.hasCard;
-            repeats = realData.repeats;
-
             if (hasCard) {
                 repeats++;
                 persist();
@@ -96,10 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
         minus.addEventListener('click', () => {
-            const realData = savedCards[cardId] || { hasCard: false, repeats: 0 };
-            hasCard = realData.hasCard;
-            repeats = realData.repeats;
-
             if (hasCard && repeats > 0) {
                 repeats--;
                 persist();
@@ -117,15 +131,15 @@ document.addEventListener("DOMContentLoaded", () => {
         let faltantes = 0;
         let repetidas = 0;
 
-        for (let i = startNumber; i <= endNumber; i++) {
-            const card = data[i];
-            if (card?.hasCard) {
+        cardsList.forEach(card => {
+            const c = data[card.id];
+            if (c?.hasCard) {
                 obtenidas++;
-                repetidas += card.repeats;
+                repetidas += c.repeats;
             } else {
                 faltantes++;
             }
-        }
+        });
 
         return { obtenidas, faltantes, repetidas };
     }
@@ -151,24 +165,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const items = document.querySelectorAll(".item");
 
         items.forEach((item, index) => {
-            const cardId = startNumber + index;
+            const cardId = cardsList[index].id;
             const card = data[cardId];
 
             let show = false;
 
             switch (type) {
-                case "all":
-                    show = true;
-                    break;
-                case "obtained":
-                    show = card?.hasCard;
-                    break;
-                case "missing":
-                    show = !card?.hasCard;
-                    break;
-                case "repeated":
-                    show = card?.hasCard && card.repeats > 0;
-                    break;
+                case "all": show = true; break;
+                case "obtained": show = card?.hasCard; break;
+                case "missing": show = !card?.hasCard; break;
+                case "repeated": show = card?.hasCard && card.repeats > 0; break;
             }
 
             item.style.display = show ? "" : "none";
@@ -177,12 +183,12 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /* mark all cards */
     function markAllCards() {
-        for (let i = startNumber; i <= endNumber; i++) {
-            savedCards[i] = {
+        cardsList.forEach(card => {
+            savedCards[card.id] = {
                 hasCard: true,
                 repeats: 0
             };
-        }
+        });
 
         saveCards(savedCards);
 
@@ -220,12 +226,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function areAllCardsMarked() {
         const data = loadCards();
 
-        for (let i = startNumber; i <= endNumber; i++) {
-            if (!data[i]?.hasCard) {
-                return false;
-            }
-        }
-        return true;
+        return cardsList.every(card => data[card.id]?.hasCard);
     }
 
     function updateMarkAllButton() {
@@ -241,12 +242,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     function unmarkAllCards() {
-        for (let i = startNumber; i <= endNumber; i++) {
-            savedCards[i] = {
+        cardsList.forEach(card => {
+            savedCards[card.id] = {
                 hasCard: false,
                 repeats: 0
             };
-        }
+        });
 
         saveCards(savedCards);
 
@@ -314,25 +315,25 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = loadCards();
         const result = [];
 
-        for (let i = startNumber; i <= endNumber; i++) {
-            const card = data[i];
+        cardsList.forEach(card => {
+            const c = data[card.id];
 
-            if (type === "obtained" && card?.hasCard) {
-                result.push(i);
+            if (type === "obtained" && c?.hasCard) {
+                result.push(card.label);
             }
 
-            if (type === "missing" && !card?.hasCard) {
-                result.push(i);
+            if (type === "missing" && !c?.hasCard) {
+                result.push(card.label);
             }
 
-            if (type === "repeated" && card?.hasCard && card.repeats > 0) {
-                if (card.repeats === 1) {
-                    result.push(`${i}`);
-                } else {
-                    result.push(`${i}(x${card.repeats})`);
-                }
+            if (type === "repeated" && c?.hasCard && c.repeats > 0) {
+                result.push(
+                    c.repeats === 1
+                        ? `${card.label}`
+                        : `${card.label}(x${c.repeats})`
+                );
             }
-        }
+        });
 
         return result.join(", ");
     }
@@ -341,14 +342,15 @@ document.addEventListener("DOMContentLoaded", () => {
         const data = loadCards();
         let count = 0;
 
-        for (let i = startNumber; i <= endNumber; i++) {
-            const card = data[i];
-            if (type === "obtained" && card?.hasCard) count++;
-            if (type === "missing" && !card?.hasCard) count++;
-            if (type === "repeated" && card?.hasCard && card.repeats > 0) {
-                count += card.repeats;
+        cardsList.forEach(card => {
+            const c = data[card.id];
+
+            if (type === "obtained" && c?.hasCard) count++;
+            if (type === "missing" && !c?.hasCard) count++;
+            if (type === "repeated" && c?.hasCard && c.repeats > 0) {
+                count += c.repeats;
             }
-        }
+        });
 
         if (type === "obtained") copyCountEl.textContent = `Obtenidas: ${count}`;
         if (type === "missing") copyCountEl.textContent = `Faltantes: ${count}`;
@@ -362,40 +364,28 @@ document.addEventListener("DOMContentLoaded", () => {
     /* search bar */
     const toggleBtn = document.getElementById("searchToggle");
     const searchBar = document.getElementById("searchBar");
+    const searchInput = searchBar.querySelector("input");
 
     toggleBtn.addEventListener("click", () => {
         searchBar.style.display =
             searchBar.style.display === "block" ? "none" : "block";
-
-        if (searchBar.style.display === "block") {
-            searchBar.querySelector("input").focus();
-        }
+        if (searchBar.style.display === "block") searchInput.focus();
     });
-
-    const searchInput = searchBar.querySelector("input");
 
     searchInput.addEventListener("input", () => {
         const query = searchInput.value
             .split(",")
-            .map(n => n.trim())
-            .filter(n => n !== "");
-
+            .map(n => n.trim());
         filterCardsBySearch(query);
     });
 
-    function filterCardsBySearch(numbers) {
-        const cards = document.querySelectorAll(".item");
-
-        cards.forEach(card => {
-            const cardNumber = card.querySelector(".card-number").textContent.trim();
-
-            if (numbers.length === 0 || numbers.includes(cardNumber)) {
-                card.style.display = "";
-            } else {
-                card.style.display = "none";
-            }
+    function filterCardsBySearch(values) {
+        document.querySelectorAll(".item").forEach((item, index) => {
+            const label = cardsList[index].label.toString();
+            item.style.display =
+                values.length === 0 || values.includes(label) ? "" : "none";
         });
-    }
+    };
 
     /* export json */
     document.getElementById("exportBtn").addEventListener("click", () => {
