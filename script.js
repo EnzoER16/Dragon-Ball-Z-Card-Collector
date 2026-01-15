@@ -40,15 +40,15 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (uniques) {
-        for (let i = uniques.from; i <= uniques.to; i++) {
-            const id = `${uniques.prefix}${i}`;
-            const label = uniques.labels[i - uniques.from]; // número que se ve en la carta
+        uniques.ids.forEach((num, index) => {
+            const id = `${uniques.prefix}${num}`;
+            const label = uniques.labels[index];
             cardsList.push({
                 id,
-                label, // esto se mostrará en la carta
+                label,
                 url: `${baseUrl}/${id}.jpg`
             });
-        }
+        });
     }
 
     const TOTAL_CARDS = cardsList.length;
